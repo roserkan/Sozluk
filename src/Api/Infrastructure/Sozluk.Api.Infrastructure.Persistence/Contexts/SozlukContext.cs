@@ -23,6 +23,18 @@ public class SozlukContext: DbContext
     public DbSet<EntryCommentFavorite> EntryCommentFavorites { get; set; }
     public DbSet<EntryCommentVote> EntryCommentVotes { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            string connectionString = "Server=localhost;Port=5432;Database=sozlukdb;User Id=postgres;Password=123456;";
+            optionsBuilder.UseNpgsql(connectionString, opt =>
+            {
+                opt.EnableRetryOnFailure();
+            });
+        }
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
