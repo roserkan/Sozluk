@@ -6,5 +6,5 @@ public class EntryCommentFavorite : BaseEntity
     public Guid CreatedById { get; set; }
 
     public virtual EntryComment EntryComment { get; set; }
-    public virtual User User { get; set; }
+    public virtual User CreatedUser { get; set; }
 }
